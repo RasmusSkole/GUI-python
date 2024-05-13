@@ -32,38 +32,7 @@ def func_søk_kunde():
     conn.close()
 
 #funksjon for å legge til en ny kunde
-def func_legg_til_kunde():
-    var_navn = var_navn_innlegg.get()
-    var_epost = var_epost_innlegg.get()
-    var_postnummer = var_postnummer_innlegg.get()
-    var_byen = var_by_innlegg.get()
 
-    if var_navn and var_epost and var_postnummer and var_byen:
-        conn = sqlite3.connect('kunde.db')
-        c = conn.cursor()
-        c.execute("INSERT INTO kunder (navn, epost, postnummer, byen) VALUES (?, ?, ?, ?)",
-                    (var_navn, var_epost, var_postnummer, var_byen))
-        conn.commit()
-        conn.close()
-        messagebox.showinfo("Suksess", "Kunde lagt til.")
-    else:
-        messagebox.showinfo("Feil", "Vennligst fyll ut alle feltene.")
-
-#funksjon for å slette en kunde
-def func_slett_kunde():
-    var_valgt_element = var_resultat_tabell.selection()
-    if var_valgt_element:
-        var_kunde_id = var_resultat_tabell.item(var_valgt_element)['text']
-        var_bekreftelse = messagebox.askyesno("Slett kunde", "Er du sikker på at du vil slette denne kunden?")
-        if var_bekreftelse:
-            conn = sqlite3.connect('kunde.db')
-            c = conn.cursor()
-            c.execute("DELETE FROM kunder WHERE id=?", (var_kunde_id,))
-            conn.commit()
-            conn.close()
-            func_søk_kunde()
-    else:
-        messagebox.showinfo("Feil", "Vennligst velg en kunde å slette.")
 
 #main funksjonen
 def func_main():
@@ -128,12 +97,6 @@ def func_main():
     var_by_innlegg = ttk.Entry(var_main)
     var_by_innlegg.grid(row=6, column=1, padx=10, pady=5)
 
-    # Legger til "legg til kunde" og "slett kunde" knappene i gui-en
-    legg_til_knapp = ttk.Button(var_main, text="Legg til kunde", command=func_legg_til_kunde)
-    legg_til_knapp.grid(row=7, column=0, columnspan=2, padx=10, pady=10)
-
-    slett_knapp = ttk.Button(var_main, text="Slett kunde", command=func_slett_kunde)
-    slett_knapp.grid(row=7, column=2, padx=10, pady=10)
 
     # Start GUI-løkke
     var_main.mainloop()
