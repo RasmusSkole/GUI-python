@@ -99,7 +99,7 @@ def func_main():
     var_resultat_rullefelt.grid(row=1, column=3, sticky='ns')
     var_resultat_tabell.configure(yscrollcommand=var_resultat_rullefelt.set)
 
-    # Legger til "legg til kunde" teksten i gui-en
+    # Legger til "legg til kunde" teksten i gui-e
     legg_til_etikett = ttk.Label(var_main, text="Legg til ny kunde")
     legg_til_etikett.grid(row=2, column=0, columnspan=2, padx=10, pady=10)
 
